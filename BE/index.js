@@ -5,8 +5,8 @@ const PORT = process.env.PORT;
 const mongoose = require("mongoose");
 const ATLAS_MONGO_CONNECTION = process.env.ATLAS_MONGO_CONNECTION;
 app.use(express.json());
-const Roles = require("./role.model");
-const roles = express.Router("/roles");
+const routes = require("./routes/v1");
+app.use("/v1", routes);
 
 app.get("/roles", async (req, res) => {
   const roles = await Roles.find();
@@ -29,6 +29,16 @@ app.put("/roles/update", async (req, res) => {
   const role = await Roles.findByIdAndUpdate(id, req.body);
   const roles = await Roles.findById(id);
   res.json({ date: roles });
+});
+
+app.delete("/roles/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const role = await Roles.findByIdAndDelete(id);
+    await res.json({ success: true, data: role });
+  } catch (error) {
+    res.json({ success: false, data: error });
+  }
 });
 
 mongoose.connect(ATLAS_MONGO_CONNECTION).then(() => {
