@@ -9,7 +9,8 @@ const createRole = async (req) => {
   return await roles.save();
 };
 
-const updateRole = async (id, req) => {
+const updateRole = async (req) => {
+  const { id } = req.query;
   const role = await Roles.findByIdAndUpdate(id, req.body);
   const roles = await Roles.findById(id);
   return await roles;

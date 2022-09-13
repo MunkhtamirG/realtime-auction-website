@@ -15,8 +15,7 @@ const createRole = async (req, res) => {
 };
 
 const updateRole = async (req, res) => {
-  const { id } = req.query;
-  const roles = await rolesServices.updateRole(id, req);
+  const roles = await rolesServices.updateRole(req);
   res.json({ date: roles });
 };
 
