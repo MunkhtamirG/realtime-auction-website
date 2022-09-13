@@ -8,8 +8,9 @@ app.use(express.json());
 const Roles = require("./role.model");
 const roles = express.Router("/roles");
 
-app.get("/roles", (req, res) => {
-  res.json({ data: "im here" });
+app.get("/roles", async (req, res) => {
+  const roles = await Roles.find();
+  res.json({ data: roles });
 });
 
 app.post("/roles/create", async (req, res) => {
@@ -21,6 +22,13 @@ app.post("/roles/create", async (req, res) => {
   } catch (error) {
     res.json({ error: error });
   }
+});
+
+app.put("/roles/update", async (req, res) => {
+  const { id } = req.query;
+  const role = await Roles.findByIdAndUpdate(id, req.body);
+  const roles = await Roles.findById(id);
+  res.json({ date: roles });
 });
 
 mongoose.connect(ATLAS_MONGO_CONNECTION).then(() => {
