@@ -16,7 +16,8 @@ const updateRole = async (req) => {
   return await roles;
 };
 
-const deleteRole = async (id) => {
+const deleteRole = async (req) => {
+  const { id } = req.params;
   const role = await Roles.findByIdAndDelete(id);
   return await role;
 };

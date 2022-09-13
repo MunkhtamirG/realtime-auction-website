@@ -20,9 +20,8 @@ const updateRole = async (req, res) => {
 };
 
 const deleteRole = async (req, res) => {
-  const { id } = req.params;
   try {
-    const roles = await rolesServices.deleteRole(id);
+    const roles = await rolesServices.deleteRole(req);
     await res.json({ success: true, data: roles });
   } catch (error) {
     res.json({ success: false, data: error });
