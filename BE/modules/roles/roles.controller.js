@@ -1,4 +1,3 @@
-const Roles = require("./role.model");
 const rolesServices = require("./roles.services");
 
 const getRoles = async (req, res) => {

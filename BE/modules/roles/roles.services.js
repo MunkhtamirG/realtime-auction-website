@@ -3,6 +3,7 @@ const Roles = require("./role.model");
 const getRoles = () => {
   return Roles.find();
 };
+
 const createRole = async (req) => {
   const roles = new Roles(req.body);
   return await roles.save();
@@ -18,4 +19,5 @@ const deleteRole = async (id) => {
   const role = await Roles.findByIdAndDelete(id);
   return await role;
 };
+
 module.exports = { createRole, getRoles, updateRole, deleteRole };
