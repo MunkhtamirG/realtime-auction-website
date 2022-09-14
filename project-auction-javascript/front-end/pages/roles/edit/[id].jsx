@@ -33,37 +33,41 @@ export default function Edit() {
       });
   }
   return (
-    <div>
-      <Box
-        component="form"
-        style={{
-          backgroundColor: "white",
-          color: "black",
-          display: "flex",
-          flexDirection: "column",
-          gap: 20,
-          padding: 20,
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: 5,
-        }}
-        onSubmit={submitHandler}
-      >
-        <Typography>Edit Role</Typography>
-        <TextField
-          label="Role Name"
-          defaultValue={data?.role_name}
-          name="roleName"
-        ></TextField>
-        <TextField
-          label="Role Status"
-          defaultValue={data?.role_status}
-          name="roleStatus"
-        ></TextField>
-        <Button variant="contained" type="submit">
-          Save
-        </Button>
-      </Box>
-    </div>
+    <>
+      {data ? (
+        <div>
+          <Box
+            component="form"
+            style={{
+              backgroundColor: "white",
+              color: "black",
+              display: "flex",
+              flexDirection: "column",
+              gap: 20,
+              padding: 20,
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 5,
+            }}
+            onSubmit={submitHandler}
+          >
+            <Typography>Edit Role</Typography>
+            <TextField
+              label="Role Name"
+              defaultValue={data.role_name}
+              name="roleName"
+            ></TextField>
+            <TextField
+              label="Role Status"
+              defaultValue={data.role_status}
+              name="roleStatus"
+            ></TextField>
+            <Button variant="contained" type="submit">
+              Save
+            </Button>
+          </Box>
+        </div>
+      ) : null}
+    </>
   );
 }

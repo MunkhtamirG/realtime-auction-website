@@ -8,6 +8,10 @@ import {
   TableHead,
   TableContainer,
   Link,
+  Button,
+  Modal,
+  Box,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
@@ -15,12 +19,26 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import useSWR from "swr";
 
 export default function Roles() {
+  const [open, setOpen] = React.useState(false);
   const rolesApi = "http://localhost:4000/v1/roles";
   const fetcher = async (url) =>
     await axios.get(url).then((res) => {
       return res.data.data;
     });
   const { data, error } = useSWR(rolesApi, fetcher);
+
+  function openDeleteModal() {
+    setOpen(true);
+  }
+
+  function deleteHandler(id) {
+    axios.delete(`http://localhost:4000/v1/roles/delete/${id}`).then((res) => {
+      if (res.status === 200) {
+        setOpen(false);
+        location.reload();
+      }
+    });
+  }
 
   return (
     <TableContainer component={Paper}>
@@ -50,10 +68,58 @@ export default function Roles() {
                   </Link>
                 </TableCell>
                 <TableCell>
-                  <Link href={`/roles/delete/${role._id}`}>
+                  <Button onClick={openDeleteModal}>
                     <DeleteForeverIcon />
-                  </Link>
+                  </Button>
                 </TableCell>
+                <Modal
+                  open={open}
+                  onClose={() => {
+                    setOpen(false);
+                  }}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      bgcolor: "background.paper",
+                      borderRadius: 5,
+                      boxShadow: 24,
+                      p: 4,
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: 3,
+                      color: "black",
+                    }}
+                  >
+                    <Typography>Delete?</Typography>
+                    <div style={{ display: "flex", gap: 15 }}>
+                      <Button
+                        variant="contained"
+                        onClick={() => {
+                          setOpen(false);
+                        }}
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => {
+                          deleteHandler(role._id);
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </Box>
+                </Modal>
               </TableRow>
             );
           })}
