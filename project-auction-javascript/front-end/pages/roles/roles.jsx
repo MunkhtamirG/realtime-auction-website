@@ -125,6 +125,15 @@ export default function Roles() {
           })}
         </TableBody>
       </Table>
+      <Button
+        variant="contained"
+        color="success"
+        style={{
+          width: "100%",
+        }}
+      >
+        Add Role
+      </Button>
     </TableContainer>
   );
 }
