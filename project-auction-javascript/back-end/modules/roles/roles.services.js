@@ -22,4 +22,10 @@ const deleteRole = async (req) => {
   return await role;
 };
 
-module.exports = { createRole, getRoles, updateRole, deleteRole };
+const getRoleById = async (req) => {
+  const { id } = req.params;
+  const role = await Roles.findById(id);
+  return await role;
+};
+
+module.exports = { createRole, getRoles, updateRole, deleteRole, getRoleById };

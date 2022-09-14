@@ -28,4 +28,13 @@ const deleteRole = async (req, res) => {
   }
 };
 
-module.exports = { getRoles, createRole, updateRole, deleteRole };
+const getRoleById = async (req, res) => {
+  try {
+    const roles = await rolesServices.getRoleById(req);
+    await res.json({ success: true, data: roles });
+  } catch (error) {
+    res.json({ success: false, data: error });
+  }
+};
+
+module.exports = { getRoles, createRole, updateRole, deleteRole, getRoleById };

@@ -8,7 +8,7 @@ export default function Navbar() {
       <Link href={"/"}>
         <Button>Main</Button>
       </Link>
-      <Link href={"/roles/getRoles"}>
+      <Link href={"/roles/roles"}>
         <Button>Roles</Button>
       </Link>
     </div>
